@@ -12,31 +12,37 @@ import java.awt.*;
 public class CreditPanel extends JPanel {
 
     BorderLayout borderLayout;
-    private JTextField creditText;
+    private JTextArea creditArea;
     private JButton saveButton, clearButton;
-    private FlowLayout flowLayout;
-    private ButtonGroup buttonGroup;
 
     public CreditPanel() {
         borderLayout = new BorderLayout();
-
         this.setLayout(borderLayout);
-        flowLayout = new FlowLayout(FlowLayout.CENTER);
-        borderLayout.addLayoutComponent();
 
         TitledBorder title = BorderFactory.createTitledBorder("Einnahmen eintragen");
         this.setBorder(title);
 
-        initPanel();
+        initComponents();
         addToLayout();
     }
 
+    public JTextArea getCreditArea() {
+        if (creditArea == null) {
+            throw new IllegalArgumentException("JTextArea is empty");
+        } else return creditArea;
+    }
+
+    public void setCreditArea(JTextArea creditArea) {
+        if (creditArea != null && creditArea.getText() != null) {
+            this.creditArea = creditArea;
+        } else throw new IllegalArgumentException("JTextArea must be empty");
+    }
 
     /**
-     * Initializes the layout
+     * Initializes the Components
      */
-    private void initPanel() {
-        creditText = new JTextField();
+    private void initComponents() {
+        creditArea = new JTextArea();
         saveButton = new JButton("Speichern");
         clearButton = new JButton("Löschen");
     }
@@ -45,9 +51,12 @@ public class CreditPanel extends JPanel {
      * Adds elements to the layout
      */
     private void addToLayout() {
-        this.add(creditText, BorderLayout.CENTER);
-        this.add(saveButton);
-        this.add(clearButton);
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(saveButton);
+        buttonPanel.add(clearButton);
+        this.add(buttonPanel, BorderLayout.PAGE_END); //this.add = füge DIESEM JPanel das ButtonPanel hinzu
+
+        this.add(creditArea, BorderLayout.CENTER);
     }
 
     /**
