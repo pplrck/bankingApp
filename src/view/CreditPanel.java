@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 /**
@@ -18,9 +17,6 @@ public class CreditPanel extends JPanel {
     public CreditPanel() {
         borderLayout = new BorderLayout();
         this.setLayout(borderLayout);
-
-        TitledBorder title = BorderFactory.createTitledBorder("Einnahmen eintragen");
-        this.setBorder(title);
 
         initComponents();
         addToLayout();

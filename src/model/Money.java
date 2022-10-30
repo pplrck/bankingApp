@@ -1,5 +1,7 @@
 package model;
 
+import view.CreditPanel;
+
 /**
  * Knows user input
  * Manages user data and diagrams
@@ -7,10 +9,11 @@ package model;
 public class Money {
 
     private double amount;
-
+    private CreditPanel creditPanel;
 
     public Money(double amount) {
         this.amount = amount;
+        creditPanel = new CreditPanel();
     }
 
     public double getAmount() {
@@ -21,5 +24,13 @@ public class Money {
         if (amount >= 0) {
             this.amount = amount;
         } else throw new IllegalArgumentException("Invalid amount entered");
+    }
+
+    /**
+     * Get entered amount from user input in JTextArea
+     */
+    private void getCreditInput() {
+        double input = Double.parseDouble(creditPanel.getCreditArea().toString());
+        setAmount(input);
     }
 }
